@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Weather Dashboard</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=DM+Serif+Display&display=swap"
+        rel="stylesheet" />
+</head>
+
+<body>
+
+    <!-- LOADER -->
+    <div class="loader" id="loader">
+        <div class="loader-dot"></div>
+        <div class="loader-dot"></div>
+        <div class="loader-dot"></div>
+    </div>
+
+    <!-- CITY BACKGROUND PHOTO -->
+    <div class="city-bg" id="cityBg">
+        <div class="city-bg-img" id="cityBgImg"></div>
+        <div class="city-bg-tint"></div>
+    </div>
+
+    <!-- ═══ HERO PANEL (top half) ═══ -->
+    <div class="hero-panel">
+
+        <!-- Search -->
+        <div class="search-wrap" id="searchWrap">
+            <div class="search-bar" id="searchBar">
+                <svg class="s-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="M21 21l-4.35-4.35" />
+                </svg>
+                <input id="cityInput" class="s-input" type="text" placeholder="Buscar ciudad…" autocomplete="off"
+                    spellcheck="false" />
+                <button class="s-geo" id="geoBtn" title="Usar mi ubicación">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="3" />
+                        <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Sugerencias de ciudad (autocomplete) -->
+            <div class="suggestions-box" id="suggestionsBox"></div>
+
+            <!-- History chips con botón × por chip -->
+            <div class="history-chips" id="historyChips"></div>
+
+            <!-- Error bar -->
+            <div class="error-bar" id="errorBar">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="8" x2="12" y2="12" />
+                    <circle cx="12" cy="16" r="0.5" fill="currentColor" />
+                </svg>
+                <span id="errorText">Ciudad no encontrada</span>
+            </div>
+        </div>
+
+        <!-- Weather Info Row -->
+        <div class="hero-info" id="heroInfo">
+
+            <!-- LEFT: Temperature + City -->
+            <div class="hero-left">
+                <div class="temp-row">
+                    <span class="temp-big" id="tempBig">--</span>
+                    <div class="temp-meta">
+                        <div class="unit-toggle">
+                            <button class="u-btn active" id="btnC">°C</button>
+                            <span>/</span>
+                            <button class="u-btn" id="btnF">F</button>
+                        </div>
+                        <div class="condition-row">
+                            <img id="condIcon" src="" alt="" class="cond-icon" />
+                            <span id="condText">--</span>
+                        </div>
+                    </div>
+                </div>
+                <h1 class="city-title" id="cityTitle">Smart Weather</h1>
+                <p class="city-sub" id="citySub">Dashboard</p>
+                <button class="change-city-btn" id="changeCityBtn">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="12" height="12">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                        <circle cx="12" cy="10" r="3" />
+                    </svg>
+                    Cambiar ciudad
+                </button>
+            </div>
+
+            <!-- RIGHT: Clock + Timezones -->
+            <div class="hero-right">
+                <div class="clock-big" id="clockBig">--:--</div>
+                <div class="date-str" id="dateStr">--</div>
+                <div class="tz-row">
+                    <button class="tz-btn active" data-tz="local">Local</button>
+                    <button class="tz-btn" data-tz="America/New_York">EST</button>
+                    <button class="tz-btn" data-tz="Europe/London">GMT</button>
+                    <button class="tz-btn" data-tz="Asia/Kolkata">IST</button>
+                    <button class="tz-btn" data-tz="America/Los_Angeles">PDT</button>
+                    <button class="tz-btn" data-tz="Asia/Tokyo">JST</button>
+                    <span class="tz-arrow">→</span>
+                </div>
+            </div>
+
+        </div>
+    </div><!-- /hero-panel -->
+
+    <!-- ═══ BOTTOM PANEL ═══ -->
+    <div class="bottom-panel" id="bottomPanel">
+
+        <!-- LEFT: Tabs + Stats -->
+        <div class="bp-left">
+            <div class="tab-bar">
+                <button class="tab active" data-tab="today">Pronóstico de Hoy</button>
+                <button class="tab" data-tab="hourly">Por Hora</button>
+                <button class="tab" data-tab="daily">7 Días</button>
+            </div>
+
+            <!-- Hoy -->
+            <div class="tab-pane active" id="pane-today">
+                <div class="stats-grid">
+                    <div class="s-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="s-svg">
+                            <path d="M12 2a7 7 0 0 0-7 7c0 3.87 3.13 7 7 7s7-3.13 7-7a7 7 0 0 0-7-7z" />
+                            <path d="M12 22v-6" />
+                            <path d="M9 19h6" />
+                        </svg>
+                        <span class="s-lbl">Humedad</span>
+                        <span class="s-val" id="stHumidity">--%</span>
+                    </div>
+                    <div class="s-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="s-svg">
+                            <path d="M14.5 10a2.5 2.5 0 0 1-5 0v-5a2.5 2.5 0 0 1 5 0v5z" />
+                            <path d="M12 10v4" />
+                            <circle cx="12" cy="17" r="3" />
+                        </svg>
+                        <span class="s-lbl">Presión</span>
+                        <span class="s-val" id="stPressure">-- mb</span>
+                    </div>
+                    <div class="s-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="s-svg">
+                            <circle cx="12" cy="12" r="2" />
+                            <path
+                                d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5C21.27 7.61 17 4.5 12 4.5z" />
+                        </svg>
+                        <span class="s-lbl">Visibilidad</span>
+                        <span class="s-val" id="stVisibility">-- km</span>
+                    </div>
+                    <div class="s-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="s-svg">
+                            <path
+                                d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2" />
+                        </svg>
+                        <span class="s-lbl">Viento</span>
+                        <span class="s-val" id="stWind">-- km/h</span>
+                    </div>
+                    <div class="s-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="s-svg">
+                            <path
+                                d="M12 3v1m0 16v1M4.22 4.22l.7.7m13.16 13.16.7.7M3 12H2m20 0h-1M4.22 19.78l.7-.7M18.94 5.06l.7-.7" />
+                            <circle cx="12" cy="12" r="4" />
+                        </svg>
+                        <span class="s-lbl">Índice UV</span>
+                        <span class="s-val" id="stUV">-- de 10</span>
+                    </div>
+                    <div class="s-item">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="s-svg">
+                            <path d="M12 22a6 6 0 0 1-6-6c0-4 6-14 6-14s6 10 6 14a6 6 0 0 1-6 6z" />
+                        </svg>
+                        <span class="s-lbl">Punto de Rocío</span>
+                        <span class="s-val" id="stDew">--°</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Por hora -->
+            <div class="tab-pane" id="pane-hourly">
+                <div class="hourly-row" id="hourlyRow"></div>
+            </div>
+
+            <!-- 7 días -->
+            <div class="tab-pane" id="pane-daily">
+                <div class="daily-list" id="dailyList"></div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Hoy mañana/tarde/noche + Sol -->
+        <div class="bp-right">
+            <div class="bpr-header">
+                <span class="bpr-title">Hoy</span>
+                <button class="add-city-btn" id="addCityBtn" title="Guardar ciudad actual">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                        <path d="M12 5v14M5 12h14" />
+                    </svg>
+                    Guardar ciudad
+                </button>
+            </div>
+
+            <!-- ✅ FIX: Botón de flecha innecesario eliminado -->
+            <div class="period-cards">
+                <div class="period-card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="period-icon">
+                        <path d="M17 18a5 5 0 0 0-10 0" />
+                        <line x1="12" y1="2" x2="12" y2="9" />
+                        <line x1="4.22" y1="10.22" x2="5.64" y2="11.64" />
+                        <line x1="1" y1="18" x2="3" y2="18" />
+                        <line x1="21" y1="18" x2="23" y2="18" />
+                        <line x1="18.36" y1="11.64" x2="19.78" y2="10.22" />
+                    </svg>
+                    <span class="period-lbl">Mañana</span>
+                    <span class="period-temp" id="pMorning">--°<sub>c</sub></span>
+                </div>
+                <div class="period-card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="period-icon">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <span class="period-lbl">Tarde</span>
+                    <span class="period-temp" id="pAfternoon">--°<sub>c</sub></span>
+                </div>
+                <div class="period-card">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="period-icon">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
+                    <span class="period-lbl">Noche</span>
+                    <span class="period-temp" id="pEvening">--°<sub>c</sub></span>
+                </div>
+            </div>
+
+            <div class="sun-bar">
+                <div class="sun-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18"
+                        height="18">
+                        <path d="M17 18a5 5 0 0 0-10 0" />
+                        <line x1="12" y1="2" x2="12" y2="9" />
+                        <line x1="4.22" y1="10.22" x2="5.64" y2="11.64" />
+                        <line x1="1" y1="18" x2="3" y2="18" />
+                        <line x1="21" y1="18" x2="23" y2="18" />
+                        <line x1="18.36" y1="11.64" x2="19.78" y2="10.22" />
+                    </svg>
+                    <div class="sun-detail">
+                        <span class="sun-lbl">Amanecer</span>
+                        <span class="sun-val" id="sunRise">--:--</span>
+                    </div>
+                </div>
+                <div class="sun-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="18"
+                        height="18">
+                        <path d="M17 18a5 5 0 0 0-10 0" />
+                        <path d="M12 9V2" />
+                        <line x1="4.22" y1="10.22" x2="5.64" y2="11.64" />
+                        <line x1="1" y1="18" x2="3" y2="18" />
+                        <line x1="21" y1="18" x2="23" y2="18" />
+                        <line x1="18.36" y1="11.64" x2="19.78" y2="10.22" />
+                    </svg>
+                    <div class="sun-detail">
+                        <span class="sun-lbl">Atardecer</span>
+                        <span class="sun-val" id="sunSet">--:--</span>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /bp-right -->
+    </div><!-- /bottom-panel -->
+
+    <!-- Toast de confirmación -->
+    <div class="toast" id="toast"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
