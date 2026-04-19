@@ -13,7 +13,7 @@ Aplicación web moderna, responsive y de pantalla completa con pronóstico del t
 
 ### Demo en línea
 
-**https://smart-weather-dashboard.vercel.app/**
+**https://smart-weather-dashboard-plum.vercel.app/**
 
 </div>
 
