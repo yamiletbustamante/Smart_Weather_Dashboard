@@ -129,7 +129,7 @@ smart-weather-dashboard/
 
 | Pronóstico por horas | Pronóstico 7 días |
 | --- | --- |
-| <img src="hourly-panel.png" width="50%"> | <img src="daily-panel.png" width="50%"> |
+| <img src="hourly-panel.png" width="75%"> | <img src="daily-panel.png" width="75%"> |
 
 ---
 
