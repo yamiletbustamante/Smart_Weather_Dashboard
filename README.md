@@ -8,7 +8,6 @@ Aplicación web moderna, responsive y de pantalla completa con pronóstico del t
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)]()
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)]()
 [![Responsive](https://img.shields.io/badge/Responsive-Sí-7c3aed?style=for-the-badge)]()
-[![Dark Mode](https://img.shields.io/badge/Dark_Mode-Activo-4c1d95?style=for-the-badge)]()
 [![API OpenWeather](https://img.shields.io/badge/OpenWeather_API-Activo-ea580c?style=for-the-badge)]()
 [![API Pexels](https://img.shields.io/badge/Pexels_API-Activo-05a081?style=for-the-badge)]()
 
@@ -129,7 +128,7 @@ smart-weather-dashboard/
 
 | Pronóstico por horas | Pronóstico 7 días |
 | --- | --- |
-| <img src="hourly-panel.png" width="75%"> | <img src="daily-panel.png" width="75%"> |
+| <img src="hourly-panel.png" width="100%"> | <img src="daily-panel.png" width="100%"> |
 
 ---
 
