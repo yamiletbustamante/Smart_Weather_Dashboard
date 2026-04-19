@@ -120,11 +120,8 @@ smart-weather-dashboard/
 
 ## Vista previa
 
-### Dashboard principal
-
-| Vista de escritorio | Vista móvil |
-| --- | --- |
-| <img src="dashboard-light.png" width="100%"> | <img src="mobile-view.png" width="100%"> |
+### Dashboard principal 
+ <img src="dashboard.png" width="100%"> 
 
 ---
 
@@ -132,7 +129,7 @@ smart-weather-dashboard/
 
 | Pronóstico por horas | Pronóstico 7 días |
 | --- | --- |
-| <img src="hourly-panel.png" width="100%"> | <img src="daily-panel.png" width="100%"> |
+| <img src="hourly-panel.png" width="50%"> | <img src="daily-panel.png" width="50%"> |
 
 ---
 
