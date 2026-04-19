@@ -154,9 +154,3 @@ smart-weather-dashboard/
 ## Enfoque profesional
 
 Proyecto orientado a demostrar habilidades técnicas en desarrollo web mediante una solución funcional y visualmente cuidada, con énfasis en experiencia de usuario, mantenibilidad, manejo de APIs y diseño moderno tipo dashboard.
-
----
-
-## Autor
-
-**Tu nombre aquí**
